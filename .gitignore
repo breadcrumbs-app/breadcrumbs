@@ -3,4 +3,6 @@
 build/
 lib/
 
+config.py
+
 .DS_Store
