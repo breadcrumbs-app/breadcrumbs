@@ -19,7 +19,7 @@ facebook = oauth.remote_app(
 
 @app.route('/')
 def index():
-    if logged_in():
+    if get_facebook_oauth_token():
         return render_template('map.html')
     else:
         return render_template('index.html')
@@ -38,7 +38,6 @@ def login():
 @app.route('/login/authorized')
 @facebook.authorized_handler
 def facebook_authorized(resp):
-    print resp
     next_url = request.args.get('next') or url_for('index')
 
     # Login rejected/failed
