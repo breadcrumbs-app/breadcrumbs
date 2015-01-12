@@ -1,9 +1,16 @@
-from flask import flash, Flask, redirect, render_template, request, session, url_for
+from flask import (flash, Flask, jsonify, redirect, render_template, request,
+                   session, url_for)
+from flask.ext.sqlalchemy import SQLAlchemy
+from flask.ext import restful
 from flask_oauth import OAuth
+
+from breadcrumbs.models.crumb import Crumb
 
 app = Flask(__name__)
 app.config.from_object('breadcrumbs.config')
 oauth = OAuth()
+db = SQLAlchemy(app)
+api = restful.Api(app)
 
 facebook = oauth.remote_app(
     'facebook',
@@ -60,14 +67,16 @@ def get_facebook_oauth_token():
     return session.get('oauth_token')
 
 
-def logged_in():
-    return False
-
-
-def main():
-    app.secret_key = 'very secret'
-    app.debug = True
-    app.run()
+@app.route('/crumbs', methods=['POST'])
+def create_crumb():
+    crumb_params = {request.form['user_id'],
+                    request.form['latitude'],
+                    request.form['longitude'],
+                    request.form['timestamp']}
+    crumb = Crumb(**crumb_params)
+    db.session.add(crumb)
+    db.session.commit()
+    return jsonify(**crumb)
 
 if __name__ == '__main__':
     app.run()
