@@ -1,12 +1,14 @@
-var marker;
-var defaultMarker = {
-	animation: google.maps.Animation.DROP,
-	draggable: true
-}
-
-var currentLocation={};
-var map;
-
+/*
+ * This file is going to have the Google Maps API implementation, including:
+ *    - Defaults and constants.
+ *    - The initialize() function.
+ *    - Necessary callbacks.
+ * 
+ *
+ *
+ * Copyright 2015 Eric Chen, Genji Noguchi, Justin Kim
+ *
+ */
 
 function initialize() {
     var mapOptions = {
@@ -20,7 +22,7 @@ function initialize() {
     map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 
     currentLocation = loadLocation(setMarker(marker), function(error){	
-	    switch(error.code) {
+	    switch(error.code) 
 		    case error.PERMISSION_DENIED:
 				console.log("User denied permission.");
 				break;
@@ -71,15 +73,6 @@ function setMarker(marker){
    		});
 	}
 };
-function toggleBounce(marker) {
-  	if (marker.getAnimation() != null) {
-    	marker.setAnimation(null);
-  	} else {
-    	marker.setAnimation(google.maps.Animation.BOUNCE);
-  	}
-}
-
-
 
 
 
@@ -87,18 +80,20 @@ function toggleBounce(marker) {
 //Callbacks
 function loadLocation (callback, error){
 	latlng = currentLocation;
+	load();
 
-	function getLocation(pos){
+	function getLocation(pos) {
 		latlng["latitude"] = pos.coords.latitude;
 		latlng["longitude"] = pos.coords.longitude;
 		callback(latlng);
 	}
 
-	var load = function() {
+	function load() {
 		if (navigator.geolocation) {
-			console.log("Loading location now....");
+			console.log("loading location now....");
 		    navigator.geolocation.getCurrentPosition(getLocation, error);
 		}
-	}();
+	}
 
 };
+
