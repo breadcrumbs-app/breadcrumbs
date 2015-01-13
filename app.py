@@ -1,16 +1,15 @@
 from flask import (flash, Flask, jsonify, redirect, render_template, request,
                    session, url_for)
-from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext import restful
 from flask_oauth import OAuth
 
+from breadcrumbs.database import Database
 from breadcrumbs.models.crumb import Crumb
 
 app = Flask(__name__)
 app.config.from_object('breadcrumbs.config')
 oauth = OAuth()
-db = SQLAlchemy(app)
-api = restful.Api(app)
+db = Database()
 
 facebook = oauth.remote_app(
     'facebook',
