@@ -7,7 +7,7 @@
  *
  */
 
-function createCrumb( serverUrl, info) {
+function createCrumb(info, serverUrl) {
 	$.ajax({
 	url: serverUrl+"/crumbs",
 	data: data,
@@ -15,7 +15,7 @@ function createCrumb( serverUrl, info) {
 	type: 'POST',
 	success: function(data) {
 		console.log("Data returned: "+data);
-	}
+	0,,}
 	error: function() {
 			   console.log("Error in createCrumb");
 		   },
