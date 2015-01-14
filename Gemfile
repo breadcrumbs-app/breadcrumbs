@@ -42,3 +42,13 @@ group :development, :test do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
 end
+
+group :development do
+  gem 'pry-rails', '~> 0.3.2'
+  gem 'quiet_assets', '~> 1.1.0'
+end
+
+# Configuration file
+gem 'figaro', '~> 1.0.0'
+# Facebook login
+gem 'omniauth-facebook', '~> 2.0.0'
