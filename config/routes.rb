@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+  root 'crumbs#index'
+
+  post 'auth/facebook/callback' => 'sessions#create'
+  get 'signout' => 'sessions#destroy', as: :signout
+
   resources :crumbs
 
   # The priority is based upon order of creation: first created -> highest priority.
