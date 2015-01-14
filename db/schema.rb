@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150114165709) do
+ActiveRecord::Schema.define(version: 20150114183320) do
 
   create_table "crumbs", force: :cascade do |t|
     t.float    "latitude",   null: false
@@ -25,5 +25,17 @@ ActiveRecord::Schema.define(version: 20150114165709) do
 
   add_index "crumbs", ["timestamp"], name: "index_crumbs_on_timestamp"
   add_index "crumbs", ["user_id"], name: "index_crumbs_on_user_id"
+
+  create_table "users", force: :cascade do |t|
+    t.string   "provider",         null: false
+    t.string   "uid",              null: false
+    t.string   "name",             null: false
+    t.string   "oauth_token",      null: false
+    t.datetime "oauth_expires_at", null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+  end
+
+  add_index "users", ["uid"], name: "index_users_on_uid", unique: true
 
 end
