@@ -7,6 +7,16 @@ class CrumbsController < ApplicationController
     @crumbs = Crumb.all
   end
 
+  # GET /crumbs/mine.json
+  def mine
+    @crumbs = current_user.crumbs
+
+    respond_to do |format|
+      format.html { render :index }
+      format.json { render json: @crumbs }
+    end
+  end
+
   # GET /crumbs/1
   # GET /crumbs/1.json
   def show
