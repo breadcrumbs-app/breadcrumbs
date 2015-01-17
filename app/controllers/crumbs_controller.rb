@@ -36,6 +36,7 @@ class CrumbsController < ApplicationController
   # POST /crumbs.json
   def create
     @crumb = Crumb.new(crumb_params)
+    @crumb.user_id = current_user.id
 
     respond_to do |format|
       if @crumb.save
