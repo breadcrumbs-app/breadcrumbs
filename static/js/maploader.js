@@ -82,9 +82,14 @@ function loadLocation (callback, error) {
 	if (navigator.geolocation) {
 		console.log("loading location now...");
 		navigator.geolocation.getCurrentPosition( function(pos){
+			currentLocation = {};
 		    currentLocation['longitude'] = pos.coords.longitude;	
 			currentLocation['latitude'] = pos.coords.latitude;
-			callback(pos.coords);
+
+			console.log("\n\nLocation loaded: ");
+			console.log(currentLocation);
+
+			callback(currentLocation);
 		}, error);
 	}
 }
