@@ -1,5 +1,5 @@
 /*
- * This file is going to have the Google Maps API implementation, including:
+ * This file contains the Google Maps API implementation, including:
  *    - Defaults and constants.
  *    - The initialize() function.
  *    - Necessary callbacks.
@@ -11,89 +11,81 @@
  */
 
 function initialize() {
-    var mapOptions = {
+	var mapOptions = {
 		center: new google.maps.LatLng(
-		    40.724531899999995,
-		    -73.7971586),
+					40.724531899999995,
+					-73.7971586),
 		zoom: 16,
 		mapTypeId: google.maps.MapTypeId.ROADMAP
-    }
+	}
 
-    map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+	map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 
-    currentLocation = loadLocation(setMarker(marker), function(error){	
-	    switch(error.code) 
-		    case error.PERMISSION_DENIED:
-				console.log("User denied permission.");
-				break;
-		    case error.POSITION_UNAVAILABLE:
-				console.log("Geolocation/GPS unavailable.");
-				break;
-		    case error.TIMEOUT:
-				console.log("Geolocation request timed out.");
-				break;
-		    case error.UNKNOWN_ERROR:
-				console.log("Something wack happened.");
-				break;
-    	}
-    });
+	currentLocation = loadLocation(setMarker(marker), function(error){	
+		switch(error.code) {
+		case error.PERMISSION_DENIED:
+			console.log("User denied permission.");
+			break;
+		case error.POSITION_UNAVAILABLE:
+			console.log("Geolocation/GPS unavailable.");
+			break;
+		case error.TIMEOUT:
+			console.log("Geolocation request timed out.");
+			break;
+		case error.UNKNOWN_ERROR:
+			console.log("Something wack happened.");
+			break;
+		}
+	});
 
 }
-google.maps.event.addDomListener(window, 'load', initialize);
 
 
 
+// Helper Functions
 
 
 function setMarker(marker){
 	/*
-	var contentString = "<div class=\"align-center\"> <button class=\"align-center\" type=\"button\">Drop a Crumb</button> </div>"
-	var infowindow = new google.maps.InfoWindow({
-    	content: contentString
-  	});
-	*/
+	   var contentString = "<div class=\"align-center\"> <button class=\"align-center\" type=\"button\">Drop a Crumb</button> </div>"
+	   var infowindow = new google.maps.InfoWindow({
+	   content: contentString
+	   });
+	 */
 
 	return function(latlng){
 		var pos = new google.maps.LatLng(latlng.latitude, latlng.longitude);
 		marker = new google.maps.Marker({
 			map: map,
-		    position: pos,
-		    animation: defaultMarker.animation,
-		    draggable: defaultMarker.draggable
+			   position: pos,
+			   animation: defaultMarker.animation,
+			   draggable: defaultMarker.draggable
 		});
 		map.panTo(marker.getPosition());
-		
+
 		google.maps.event.addListener(marker, 'clicked', function(){
 			console.log("hello there");
 			toggleBounce(marker);
 			//infowindow.open(map, marker);
 		})
 		google.maps.event.addListener(marker, 'dragend', function(){
-   			map.panTo(marker.getPosition());
-   		});
+			map.panTo(marker.getPosition());
+		});
 	}
 };
 
 
 
+/* Callbacks */
 
-//Callbacks
-function loadLocation (callback, error){
-	latlng = currentLocation;
-	load();
-
-	function getLocation(pos) {
-		latlng["latitude"] = pos.coords.latitude;
-		latlng["longitude"] = pos.coords.longitude;
-		callback(latlng);
+function loadLocation (callback, error) {
+	if (navigator.geolocation) {
+		console.log("loading location now...");
+		navigator.geolocation.getCurrentPosition( function(pos){
+		    currentLocation['longitude'] = pos.coords.longitude;	
+			currentLocation['latitude'] = pos.coords.latitude;
+			callback(pos.coords);
+		}, error);
 	}
-
-	function load() {
-		if (navigator.geolocation) {
-			console.log("loading location now....");
-		    navigator.geolocation.getCurrentPosition(getLocation, error);
-		}
-	}
-
-};
+}
 
