@@ -7,17 +7,22 @@
  *
  */
 
-function createCrumb(info, serverUrl) {
+function createCrumb(data, serverUrl) {
+	console.log("\n\nSending post request to "+serverUrl+"/crumbs");
+	console.log("Data: ");
+	console.log(data);
+
 	$.ajax({
+	
 	url: serverUrl+"/crumbs",
 	data: data,
 	dataType: 'JSON', 
 	type: 'POST',
 	success: function(data) {
 		console.log("Data returned: "+data);
-	0,,}
+	},
 	error: function() {
-			   console.log("Error in createCrumb");
+		   	   console.log("Error in createCrumb");
 		   },
 
 	});

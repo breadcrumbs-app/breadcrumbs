@@ -36,13 +36,15 @@ $(document).ready( function(){
 	 *  Testing to see if the function works.
 	 *  I'm delaying by x seconds in order to get the current location to load first.
 	 */
+
+	console.log(getSession());
 	setTimeout(function(){
 		createCrumb({
 			latitude: currentLocation['latitude'],
 			longitude: currentLocation['longitude'],
 			timestamp: Date.now(),
 			session: getSession()
-		})
+		}, "")
 	}, 10000);
 
 
