@@ -8,10 +8,12 @@
  */
 
 /*
+ * xmlhttp = new XmlHTTPRequest();
  * xmlhttp.open("GET", "http://bc.jstn.kim:3000/crumbs/mine", true);
  * xmlhttp.setRequestHeader("Accept", "application/json");
- * xmlhttp.send()
- * xmlhttp.responseText
+ * xmlhttp.send();
+ * xmlhttp.responseText;
+ * JSON.parse(xmlhttp.responseText);
  */
 
 /*
