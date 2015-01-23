@@ -19,7 +19,7 @@
 /*
  * handles all timeline animations and ajax functions
  */
-var timeline = (function timeline() {
+Breadcrumbs.timeline = (function timeline() {
     /*
      * part of library vertical-timeline
      * http://codyhouse.co/demo/vertical-timeline/
@@ -101,3 +101,5 @@ var timeline = (function timeline() {
         insertCrumbsIntoPage: insertCrumbsIntoPage
     };
 }());
+
+Breadcrumbs.ajax.getCrumb("http://bc.jstn.kim:3000/crumbs", Breadcrumbs.timeline.insertCrumbsIntoPage);

@@ -34,17 +34,18 @@ Breadcrumbs.ajax = (function() {
 
     }
 
-    var getCrumb = function(url) {
+    var getCrumb = function(url, callback) {
 
         console.log(url);
         $.ajax({
 
-            url: url+"/crumbs",
-            dataType: 'JSON',
+            url: url,
+            data: null,
+            dataType: 'json',
             type: 'GET',
-            success: function(resp){
-                console.log("Data returned: "+resp);
-                return data;
+            success: function(resp) {
+                console.log(resp);
+                callback(resp);
             },
             error: function() {
                 console.log("Error");
