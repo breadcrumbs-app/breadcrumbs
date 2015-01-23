@@ -12,7 +12,7 @@ $(document).ready( function() {
 
 	console.log(getSession());
 	setTimeout(function(){
-		Breadcrumbs.createCrumb({
+		Breadcrumbs.ajax.createCrumb({
 			latitude: Breadcrumbs.maps.currentLocation['latitude'],
 			longitude: Breadcrumbs.maps.currentLocation['longitude'],
 			timestamp: Date.now(),
