@@ -1,9 +1,9 @@
-$(document).ready( function() {	
+$(document).ready( function() {
 	console.log(Breadcrumbs);
 	Breadcrumbs.maps.load();
 	//Breadcrumbs.load();
 	//Google.maps.event.addDomListener(window, 'load', initialize);
-	
+
 
 	/*
 	 *  Testing to see if the function works.
@@ -12,13 +12,11 @@ $(document).ready( function() {
 
 	console.log(getSession());
 	setTimeout(function(){
-		Breadcrumbs.createCrumb({
+		Breadcrumbs.ajax.createCrumb({
 			latitude: Breadcrumbs.maps.currentLocation['latitude'],
 			longitude: Breadcrumbs.maps.currentLocation['longitude'],
 			timestamp: Date.now(),
 			user_id: 1
 		}, Breadcrumbs.url)
 	}, 10000);
-
-
 });
