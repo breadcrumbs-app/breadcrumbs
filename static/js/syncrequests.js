@@ -7,23 +7,27 @@
  *
  */
 
-function createCrumb(data, serverUrl) {
-	console.log("\n\nSending post request to "+serverUrl+"/crumbs");
-	console.log("Data: ");
-	console.log(data);
+Breadcrumbs.createCrumb = function(data, url) {
 
-	$.ajax({
-	
-	url: serverUrl+"/crumbs",
-	data: data,
+    console.log("\n\nSending post request to " + Breadcrumbs.serverUrl + "/crumbs");
+    console.log("Data: ");
+    console.log(data);
+    
+    
+    $.ajax({
+	    
+	url: url+"/crumbs",
+	data: {"crumb": data},
 	dataType: 'JSON', 
 	type: 'POST',
 	success: function(data) {
-		console.log("Data returned: "+data);
+	    console.log("Data returned: "+data);
+	    return data;
 	},
 	error: function() {
-		   	   console.log("Error in createCrumb");
-		   },
+	    console.log("Error in createCrumb");
+	},
+	
+    });
 
-	});
 }
