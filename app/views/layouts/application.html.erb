@@ -11,8 +11,7 @@
 
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
 
-  <!-- JQuery -->
-  <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+  <!-- Additional JQuery -->
   <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 
   <!-- Bootstrap JS -->
@@ -21,6 +20,8 @@
   <!-- Google assets -->
   <script src="https://maps.googleapis.com/maps/api/js"></script>
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+  <%= yield :head %>
 
   <%= csrf_meta_tags %>
 </head>
