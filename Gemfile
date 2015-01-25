@@ -52,3 +52,6 @@ end
 gem 'figaro', '~> 1.0.0'
 # Facebook login
 gem 'omniauth-facebook', '~> 2.0.0'
+
+# Static pages
+gem 'high_voltage', '~> 2.2.1'

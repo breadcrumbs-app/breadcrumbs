@@ -64,6 +64,7 @@ GEM
     globalid (0.3.0)
       activesupport (>= 4.1.0)
     hashie (3.3.2)
+    high_voltage (2.2.1)
     hike (1.2.3)
     i18n (0.7.0)
     jbuilder (2.2.6)
@@ -186,6 +187,7 @@ DEPENDENCIES
   byebug
   coffee-rails (~> 4.1.0)
   figaro (~> 1.0.0)
+  high_voltage (~> 2.2.1)
   jbuilder (~> 2.0)
   jquery-rails
   omniauth-facebook (~> 2.0.0)
