@@ -68,7 +68,7 @@ Breadcrumbs.timeline = (function timeline() {
     var convertCrumbToHtml = function(crumb) {
         var html = "<div class=\"cd-timeline-block\">" +
             "<div class=\"cd-timeline-img cd-location is-hidden\">" +
-            "<img src=\"../static/img/cd-icon-location.svg\" alt=\"Picture\">" +
+            "<img src=\"<%= asset_path('logo.png') %>\" alt=\"Picture\">" +
             "</div>"
         var contenthtml = "<div class=\"cd-timeline-content is-hidden\">" +
             "<h2>" + crumb.user_id + "</h2>" +
