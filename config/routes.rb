@@ -10,6 +10,9 @@ Rails.application.routes.draw do
     end
   end
 
+  get 'listview' => 'high_voltage/pages#show', id: 'listview'
+  get 'map' => 'high_voltage/pages#show', id: 'map'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
