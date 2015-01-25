@@ -1,3 +1,15 @@
+<%= content_for :head do %>
+  <%= stylesheet_link_tag 'map/map.css', 'data-turbolinks-track' => true %>
+
+  <!-- Google assets -->
+  <script src="https://maps.googleapis.com/maps/api/js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+  <%= javascript_include_tag 'common/breadcrumbs.js', 'map/maploader.js',
+    'common/sessionhandler.js', 'common/syncrequests.js',
+    'map/main.js', 'data-turbolinks-track' => true %>
+<% end %>
+
 <div id="map-canvas"></div>
 <div id="button-container">
   <div id="notifications">

@@ -4,25 +4,9 @@
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
   <title>Breadcrumbs</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-
-  <!-- Bootstrap -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
-
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
 
-  <!-- Additional JQuery -->
-  <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-
-  <!-- Bootstrap JS -->
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
-
-  <!-- Google assets -->
-  <script src="https://maps.googleapis.com/maps/api/js"></script>
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-
   <%= yield :head %>
-
   <%= csrf_meta_tags %>
 </head>
 <body>
