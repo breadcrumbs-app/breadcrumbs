@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Latitude:</strong>
+  <%= @crumb.latitude %>
+</p>
+
+<p>
+  <strong>Longitude:</strong>
+  <%= @crumb.longitude %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @crumb.user_id %>
+</p>
+
+<p>
+  <strong>Timestamp:</strong>
+  <%= @crumb.timestamp %>
+</p>
+
+<p>
+  <strong>Message:</strong>
+  <%= @crumb.message %>
+</p>
+
+<%= link_to 'Edit', edit_crumb_path(@crumb) %> |
+<%= link_to 'Back', crumbs_path %>
