@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Crumbs</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Latitude</th>
+      <th>Longitude</th>
+      <th>User</th>
+      <th>Timestamp</th>
+      <th>Message</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @crumbs.each do |crumb| %>
+      <tr>
+        <td><%= crumb.latitude %></td>
+        <td><%= crumb.longitude %></td>
+        <td><%= crumb.user_id %></td>
+        <td><%= crumb.timestamp %></td>
+        <td><%= crumb.message %></td>
+        <td><%= link_to 'Show', crumb %></td>
+        <td><%= link_to 'Edit', edit_crumb_path(crumb) %></td>
+        <td><%= link_to 'Destroy', crumb, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Crumb', new_crumb_path %>
