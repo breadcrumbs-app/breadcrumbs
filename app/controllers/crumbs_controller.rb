@@ -36,8 +36,8 @@ class CrumbsController < ApplicationController
   # POST /crumbs.json
   def create
     @crumb = Crumb.new(crumb_params)
-    @crumb.timestamp = DateTime.strptime(crumb_params[:timestamp],'%s')
     @crumb.user_id = current_user.id
+    @crumb.timestamp = DateTime.strptime(crumb_params[:timestamp],'%s') if crumb_params[:timestamp]
 
     respond_to do |format|
       if @crumb.save
