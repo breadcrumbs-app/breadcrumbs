@@ -16,7 +16,7 @@ class CrumbsController < ApplicationController
 
     respond_to do |format|
       format.html { render :index }
-      format.json { render json: @crumbs }
+      format.json { render json: @crumbs.as_json(include: { user: {only: :name}}) }
     end
   end
 
