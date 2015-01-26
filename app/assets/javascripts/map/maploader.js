@@ -38,7 +38,7 @@ Breadcrumbs.maps = function() {
 	function newCrumb() {
 		var message = document.getElementById('new-crumb-message').value;
 		if (!message) {
-			if( !confirm("You haven't entered a message.\nAre you sure you want to procede?")) {
+			if( !confirm("You haven't entered a message.\nAre you sure you want to proceed?")) {
 				return;
 			}
 		}
@@ -46,7 +46,6 @@ Breadcrumbs.maps = function() {
 		Breadcrumbs.ajax.createCrumb({
 			latitude: Breadcrumbs.maps.currentLocation['latitude'],
 			longitude: Breadcrumbs.maps.currentLocation['longitude'],
-			user_id: 12345,
 			timestamp: Date.now(),
 			message: message
 		}, Breadcrumbs.url);
@@ -129,9 +128,6 @@ Breadcrumbs.maps = function() {
 				var contentString = "<div class='crumb-window'>";
 				if(data.hasOwnProperty('name')) {
 					contentString += "<h1>username : "+data.name+"</h1>";
-				}
-				if(data.hasOwnProperty('user_id')) {
-					contentString += "<h1>user id : "+data.user_id+"</h1>";
 				}
 
 				markerInfo.setContent(contentString);
