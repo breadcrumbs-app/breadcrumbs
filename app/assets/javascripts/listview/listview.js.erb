@@ -27,37 +27,42 @@ Breadcrumbs.timeline = (function timeline() {
 
     var $timeline_block = $('.cd-timeline-block');
 
-    jQuery(document).ready(function($){
-
-        //hide timeline blocks which are outside the viewport
-        $timeline_block.each(function(){
-            if($(this).offset().top > $(window).scrollTop()+$(window).height()*0.75) {
-                $(this).find('.cd-timeline-img, .cd-timeline-content').addClass('is-hidden');
-            }
-        });
-
+    var show = function() {
         // animate timeline blocks in viewport that start out as hidden
         $timeline_block.each(function(){
             if( $(this).offset().top <= $(window).scrollTop()+$(window).height()*0.75 && $(this).find('.cd-timeline-img').hasClass('is-hidden') ) {
                 $(this).find('.cd-timeline-img, .cd-timeline-content').removeClass('is-hidden').addClass('bounce-in');
             }
         });
+    }
 
+    var hide = function() {
+        //hide timeline blocks which are outside the viewport
+        $timeline_block.each(function(){
+            if($(this).offset().top > $(window).scrollTop()+$(window).height()*0.75) {
+                $(this).find('.cd-timeline-img, .cd-timeline-content').addClass('is-hidden');
+            }
+        });
+    }
+
+    jQuery(document).ready(function($){
         //on scrolling, show/animate timeline blocks when enter the viewport
         $(window).on('scroll', function(){
-            $timeline_block.each(function(){
-                if( $(this).offset().top <= $(window).scrollTop()+$(window).height()*0.75 && $(this).find('.cd-timeline-img').hasClass('is-hidden') ) {
-                    $(this).find('.cd-timeline-img, .cd-timeline-content').removeClass('is-hidden').addClass('bounce-in');
-                }
-            });
+            show();
         });
     });
 
-    /*
-     * returns crumbs based on the user's geolocation
-     */
-    var getNearbyCrumbs = function() {
-        return {crumbs: [{latitude: 1.2132131313, longitude: 1.13212321312, message: "hello", user_id: 11223213213, name: "rick"}]};
+    var months = ["Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"];
+
+    var convertTimestamp = function(timestamp) {
+        var date = new Date(Date.parse(timestamp));
+
+        var formattedDate = months[date.getMonth()] + " " +
+                            date.getDay() + " " +
+                            date.getHours() + ":" +
+                            date.getMinutes();
+
+        return formattedDate;
     }
 
     /*
@@ -71,9 +76,9 @@ Breadcrumbs.timeline = (function timeline() {
             "<img src=\"<%= asset_path('cd-icon-location.svg') %>\" alt=\"Picture\">" +
             "</div>"
         var contenthtml = "<div class=\"cd-timeline-content is-hidden\">" +
-            "<h2>" + crumb.user_id + "</h2>" +
+            "<h2>" + crumb.user_id + " was at " + crumb.latitude + "," + crumb.longitude + "</h2>" +
             "<p>" + crumb.message + "</p>" +
-            "<span class=\"cd-date\">" + crumb.updated_at + "</span>" +
+            "<span class=\"cd-date\">" + convertTimestamp(crumb.timestamp) + "</span>" +
             "</div>";
 
         console.log(html + contenthtml + "</div>");
@@ -92,6 +97,7 @@ Breadcrumbs.timeline = (function timeline() {
             crumbsDIV.insertAdjacentHTML('beforeend', html);
         }
         $timeline_block = $('.cd-timeline-block');
+        show();
     }
 
 
@@ -102,4 +108,4 @@ Breadcrumbs.timeline = (function timeline() {
     };
 }());
 
-Breadcrumbs.ajax.getCrumb("http://bc.jstn.kim:3000/crumbs", Breadcrumbs.timeline.insertCrumbsIntoPage);
+Breadcrumbs.ajax.getCrumb("http://bc.jstn.kim:3000/crumbs/mine", Breadcrumbs.timeline.insertCrumbsIntoPage);
