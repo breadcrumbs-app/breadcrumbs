@@ -37,8 +37,7 @@ Breadcrumbs.ajax = (function() {
     var getCrumb = function(url, callback) {
 
         console.log(url);
-
-		/*
+	
         $.ajax({
 
             url: url,
@@ -54,8 +53,8 @@ Breadcrumbs.ajax = (function() {
             }
 
         });
-		*/
-
+	
+		/*
 		callback({
 			'crumbs': [
 			{
@@ -67,6 +66,7 @@ Breadcrumbs.ajax = (function() {
 			}
 			]
 		});
+		*/
 
     }
 
