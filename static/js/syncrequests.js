@@ -11,14 +11,14 @@ Breadcrumbs.ajax = (function() {
 
     var createCrumb = function(data, url) {
 
-        console.log("\n\nSending post request to " + Breadcrumbs.serverUrl + "/crumbs");
+        console.log("\n\nSending post request to " + Breadcrumbs.url + "/crumbs/new");
         console.log("Data: ");
         console.log(data);
 
 
         $.ajax({
 
-            url: url+"/crumbs",
+            url: url+"/crumbs/new",
             data: {"crumb": data},
             dataType: 'JSON',
             type: 'POST',
@@ -37,6 +37,8 @@ Breadcrumbs.ajax = (function() {
     var getCrumb = function(url, callback) {
 
         console.log(url);
+
+		/*
         $.ajax({
 
             url: url,
@@ -52,7 +54,22 @@ Breadcrumbs.ajax = (function() {
             }
 
         });
+		*/
+
+		callback({
+			'crumbs': [
+			{
+				'latitude': 40.7244193 + (Math.random()*0.005)-0.01,
+				'longitude': -73.7972479 + (Math.random()*0.005)-0.01,
+				'message': "This is a test breadcrumb.",
+				'user_id': 12345,
+				'name': 'Juenjic Cheguchim'
+			}
+			]
+		});
+
     }
+
 
     return {
         createCrumb: createCrumb,

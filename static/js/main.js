@@ -10,6 +10,7 @@ $(document).ready( function() {
 	 *  I'm delaying by x seconds in order to get the current location to load first.
 	 */
 
+	/*
 	console.log(getSession());
 	setTimeout(function(){
 		Breadcrumbs.ajax.createCrumb({
@@ -19,4 +20,5 @@ $(document).ready( function() {
 			user_id: 1
 		}, Breadcrumbs.url)
 	}, 10000);
+	*/
 });

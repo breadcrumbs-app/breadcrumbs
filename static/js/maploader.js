@@ -16,18 +16,41 @@ Breadcrumbs.maps = function() {
 		userMarker,
 		defaultMarker = {
 			animation: google.maps.Animation.DROP,
-			draggable: true
 		},
-		currentLocation = {};
-
-
-
+		currentLocation={},
+		markerInfo = new google.maps.InfoWindow();
 
 	function load() {
+		$("#new-crumb-button").click(function(){
+			console.log("Creating new breadcrumb: ");
+		});
 		google.maps.event.addDomListener(window, 'load', initialize);
 	}
 
+	function update() {
+		Breadcrumbs.ajax.getCrumb( Breadcrumbs.url, function(data) {
+			for (index in data['crumbs']) {
+				setMarker()(data['crumbs'][index]);
+			}
+		})
+	}
+	
+	function newCrumb() {
+		var message = document.getElementById('new-crumb-message').value;
+		if (!message) {
+			if( !confirm("You haven't entered a message.\nAre you sure you want to procede?")) {
+				return;
+			}
+		}
 
+		Breadcrumbs.ajax.createCrumb({
+			latitude: Breadcrumbs.maps.currentLocation['latitude'],
+			longitude: Breadcrumbs.maps.currentLocation['longitude'],
+			user_id: 12345,
+			timestamp: Date.now(),
+			message: message
+		}, Breadcrumbs.url);
+	}
 
 
 	function initialize() {
@@ -41,7 +64,28 @@ Breadcrumbs.maps = function() {
 
 		map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 
-		currentLocation = loadLocation( setMarker(userMarker), function(error){	
+		currentLocation = loadLocation( function(data) {
+
+			userMarker = setMarker({ draggable: true })(data);
+
+			google.maps.event.addListener( userMarker, 'click', function() {
+				var contentString = 
+				"<div style='height: 100px;'>" + 
+				"<center><h3>Drop a breadcrumb here?<h3><center>" + 
+				"<input type='text' id='new-crumb-message'>" +
+				"<button id='new-crumb-button' onclick='Breadcrumbs.maps.newCrumb()'>Drop Breadcrumb</button><br>" +
+				"</center>" + 
+				"</div>";
+
+				markerInfo.setContent(contentString);
+				markerInfo.open(map, userMarker);
+
+				var button = document.getElementById('new-crumb-button');
+				button.addEventListener('click', Breadcrumbs.maps.newCrumb);
+
+				});
+
+		}, function(error){	
 			switch(error.code) {
 			case error.PERMISSION_DENIED:
 				console.log("User denied permission.");
@@ -58,34 +102,47 @@ Breadcrumbs.maps = function() {
 			}
 		});
 
+
 	}
 
-	function setMarker(marker){
-		/*
-		   var contentString = "<div class=\"align-center\"> <button class=\"align-center\" type=\"button\">Drop a Crumb</button> </div>"
-		   var infowindow = new google.maps.InfoWindow({
-		   content: contentString
-		   });
-		   */
 
-		return function(latlng){
-			var pos = new google.maps.LatLng(latlng.latitude, latlng.longitude);
-			userMarker = new google.maps.Marker({
+
+	function setMarker(markerStyle){
+
+		return function(data){
+			var pos = new google.maps.LatLng(data.latitude, data.longitude);
+
+			/* Define marker attributes (styles, etc) */
+			var markerAttributes = {
 				map: map,
-					   position: pos,
-					   animation: defaultMarker.animation,
-					   draggable: defaultMarker.draggable
-			});
-			map.panTo( userMarker.getPosition());
+				position: pos,
+				data: data
+			};
+			for (var attr in defaultMarker) markerAttributes[attr] = defaultMarker[attr];
+			for (var attr in markerStyle) markerAttributes[attr] = markerStyle[attr];
 
-			google.maps.event.addListener( userMarker, 'clicked', function(){
-				console.log("hello there");
-				toggleBounce(userMarker);
-				//infowindow.open(map, userMarker);
-			})
-			google.maps.event.addListener( userMarker, 'dragend', function(){
+
+			var marker = new google.maps.Marker(markerAttributes);
+			map.panTo( marker.getPosition() );			
+
+			google.maps.event.addListener( marker, 'click', function(){
+				var contentString = "<div class='crumb-window'>";
+				if(data.hasOwnProperty('name')) {
+					contentString += "<h1>username : "+data.name+"</h1>";
+				}
+				if(data.hasOwnProperty('user_id')) {
+					contentString += "<h1>user id : "+data.user_id+"</h1>";
+				}
+
+				markerInfo.setContent(contentString);
+				markerInfo.open( map, marker );
+			});
+
+			google.maps.event.addListener( marker, 'dragend', function(){
 				map.panTo(userMarker.getPosition());
 			});
+
+			return marker;
 		}
 	};
 
@@ -104,12 +161,18 @@ Breadcrumbs.maps = function() {
 		}
 	}
 
+	function getMap(){ return map; }
+	function getUserMarker(){ return userMarker; }
+	function getInfoWindow(){ return markerInfo; }
 
 	return {
-		map					: map,
+		getMap				: getMap,
+		getUserMarker		: getUserMarker,
+		getInfoWindow		: getInfoWindow,
+		currentLocation		: currentLocation,
 		load				: load,
-		userMarker			: userMarker,
-		currentLocation		: currentLocation
+		update				: update,
+		newCrumb			: newCrumb
 	}
 
 }();
