@@ -46,6 +46,8 @@ Breadcrumbs.timeline = (function timeline() {
     }
 
     jQuery(document).ready(function($){
+        show();
+
         //on scrolling, show/animate timeline blocks when enter the viewport
         $(window).on('scroll', function(){
             show();
