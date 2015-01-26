@@ -18,7 +18,7 @@
  */
 
 var Breadcrumbs = {
-    url : "bc.jstn.kim:3000"
+    url : "http://bc.jstn.kim:3000"
 }
 
 Breadcrumbs.load = function() {
