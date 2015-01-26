@@ -77,7 +77,7 @@ Breadcrumbs.timeline = (function timeline() {
             "<img src=\"<%= asset_path('cd-icon-location.svg') %>\" alt=\"Picture\">" +
             "</div>"
         var contenthtml = "<div class=\"cd-timeline-content is-hidden\">" +
-            "<h2>" + crumb.user_id + "</h2>" +
+            "<h2>" + crumb.user_id + " was at " + crumb.latitude + "," + crumb.longitude + "</h2>" +
             "<p>" + crumb.message + "</p>" +
             "<span class=\"cd-date\">" + convertTimestamp(crumb.timestamp) + "</span>" +
             "</div>";
