@@ -11,14 +11,14 @@ Breadcrumbs.ajax = (function() {
 
     var createCrumb = function(data, url) {
 
-        console.log("\n\nSending post request to " + Breadcrumbs.serverUrl + "/crumbs");
+        console.log("\n\nSending post request to " + Breadcrumbs.serverUrl + "/crumbs/new");
         console.log("Data: ");
         console.log(data);
 
 
         $.ajax({
 
-            url: url+"/crumbs",
+            url: url+"/crumbs/new",
             data: {"crumb": data},
             dataType: 'JSON',
             type: 'POST',
