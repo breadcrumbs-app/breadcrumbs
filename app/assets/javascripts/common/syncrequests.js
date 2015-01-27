@@ -9,7 +9,7 @@
 
 Breadcrumbs.ajax = (function() {
 
-    var createCrumb = function(data, url) {
+    var createCrumb = function(data, url, success, error) {
 
         console.log("\n\nSending post request to " + Breadcrumbs.url + "/crumbs/new");
         console.log("Data: ");
@@ -17,41 +17,27 @@ Breadcrumbs.ajax = (function() {
 
 
         $.ajax({
-
             url: url+"/crumbs/new",
             data: {"crumb": data},
             dataType: 'JSON',
             type: 'POST',
-            success: function(response) {
-                console.log("Data returned: "+response);
-                return response;
-            },
-            error: function() {
-                console.log("Error in createCrumb");
-            }
-
+            success: success,
+			error: error
         });
 
     }
 
-    var getCrumb = function(url, callback) {
+    var getCrumb = function(url, success, error) {
 
         console.log(url);
 	
         $.ajax({
-
             url: url,
             data: null,
             dataType: 'json',
             type: 'GET',
-            success: function(resp) {
-                console.log(resp);
-                callback(resp);
-            },
-            error: function() {
-                console.log("Error");
-            }
-
+            success: success,
+			error: error
         });
 	
 		/*
