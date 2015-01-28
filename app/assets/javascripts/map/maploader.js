@@ -31,9 +31,9 @@ Breadcrumbs.maps = function() {
 		Breadcrumbs.ajax.getCrumb( Breadcrumbs.url + '/crumbs',
 			function(data) {
 				console.log(data);
-				for (index in data['crumbs']) {
-					console.log(data['crumbs'][index]);
-					setMarker()(data['crumbs'][index]);
+				for (index in data) {
+					console.log(data[index]);
+					setMarker()(data[index]);
 				}
 			}, function(err) {
 				console.log(err);
@@ -164,7 +164,7 @@ Breadcrumbs.maps = function() {
 			google.maps.event.addListener( marker, 'click', function(){
 				var contentString = "<div class='crumb-window'>";
 				if(data.hasOwnProperty('name')) {
-					contentString += "<h1>username : "+data.name+"</h1>";
+					contentString += "<h1>"+data.author.name+"</h1>";
 				}
 
 				markerInfo.setContent(contentString);
