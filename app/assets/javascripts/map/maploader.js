@@ -28,7 +28,7 @@ Breadcrumbs.maps = function() {
 	}
 
 	function update() {
-		Breadcrumbs.ajax.getCrumb( Breadcrumbs.url,
+		Breadcrumbs.ajax.getCrumb( Breadcrumbs.url + '/crumbs',
 			function(data) {
 				for (index in data['crumbs']) {
 					setMarker()(data['crumbs'][index]);
