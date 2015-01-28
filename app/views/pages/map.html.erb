@@ -6,13 +6,51 @@
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
   <link rel="stylesheet" type="text/css" href="maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"></style>
 
+  <style>
+	  #notification {
+		  position: absolute;
+		  /*height: 60px;*/
+		  margin: 20px 0;
+		  right: 1%;
+		  bottom: 1%;
+		  background: gray;
+		  border-radius: 50% / 10%;
+		  color: white;
+		  text-align: center;
+		  text-indent: .1em;
+		  opacity: 0.8;
+		  display: none; 
+	  }
+	  #notification:before {
+		  content: '';
+		  position: absolute;
+		  top: 50%;
+		  bottom: 50%;
+		  right: 50%;
+		  left: 50%;
+		  background: inherit;
+		  border-radius: 5% / 50%;
+	  }
+	  #notification-message {
+		  margin: auto;
+		  top: 50px;
+		  display: none; 
+	  }
+  </style>
+	  
+
   <%= javascript_include_tag 'common/breadcrumbs.js', 'map/maploader.js',
-    'common/sessionhandler.js', 'common/syncrequests.js',
+    'common/sessionhandler.js', 'common/syncrequests.js', 'common/notif-manager.js',
     'map/main.js', 'data-turbolinks-track' => true %>
 <% end %>
 
 <div id="map-canvas"></div>
-<div id="button-container">
-  <div id="notifications">
-  </div>
+<div id="notification">
+	<br>
+	<div id="notification-message">
+		<p>Multi</p>
+		<p>Line</p>
+		<p>Notification</p>
+	</div>
+	<br>
 </div>

@@ -28,12 +28,20 @@ Breadcrumbs.maps = function() {
 	}
 
 	function update() {
-		Breadcrumbs.ajax.getCrumb( Breadcrumbs.url, function(data) {
-			for (index in data['crumbs']) {
-				setMarker()(data['crumbs'][index]);
+		Breadcrumbs.ajax.getCrumb( Breadcrumbs.url,
+			function(data) {
+				for (index in data['crumbs']) {
+					setMarker()(data['crumbs'][index]);
+				}
+			}, function(err) {
+				Breadcrumbs.messages.createNotification({
+					message: "There was an error",
+					timeout: 3000
+				})
 			}
-		})
+		)
 	}
+			
 	
 	function newCrumb() {
 		var message = document.getElementById('new-crumb-message').value;
@@ -42,13 +50,33 @@ Breadcrumbs.maps = function() {
 				return;
 			}
 		}
+		
+		markerInfo.close();
+
+		/*
+		Breadcrumbs.messages.createNotification({
+			message: "Dropping breadcrumb....",
+			timeout: 3000
+		});
+		*/
 
 		Breadcrumbs.ajax.createCrumb({
 			latitude: Breadcrumbs.maps.currentLocation['latitude'],
 			longitude: Breadcrumbs.maps.currentLocation['longitude'],
 			timestamp: Date.now(),
 			message: message
-		}, Breadcrumbs.url);
+		}, Breadcrumbs.url,
+		function(data){
+			Breadcrumbs.messages.createNotification({
+				message: "Crumb successfully created!",
+				timeout: 3000	
+			})
+		}, function(err){
+			Breadcrumbs.messages.createNotification({
+				message: "There was an error.",
+				timeout: 3000
+			})
+		})
 	}
 
 
