@@ -30,7 +30,9 @@ Breadcrumbs.maps = function() {
 	function update() {
 		Breadcrumbs.ajax.getCrumb( Breadcrumbs.url + '/crumbs',
 			function(data) {
+				console.log(data);
 				for (index in data['crumbs']) {
+					console.log(data['crumbs'][index]);
 					setMarker()(data['crumbs'][index]);
 				}
 			}, function(err) {
