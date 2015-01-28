@@ -98,11 +98,12 @@ Breadcrumbs.maps = function() {
 		currentLocation = loadLocation( function(data) {
 
 			userMarker = setMarker({ draggable: true })(data);
+
+			google.maps.event.clearListeners( userMarker, 'click' );
 			google.maps.event.addListener( userMarker, 'click', function() {	
-				google.maps.event.clearListeners( userMarker, 'click' );
 
 				var contentString = 
-				"<div style='height: 100px;'>" + 
+				"<div style='height: 200px;'>" + 
 				"<center><h3>Drop a breadcrumb here?<h3><center>" + 
 				"<input type='text' id='new-crumb-message'>" +
 				"<button id='new-crumb-button' onclick='Breadcrumbs.maps.newCrumb()'>Drop Breadcrumb</button><br>" +
