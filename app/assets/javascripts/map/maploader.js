@@ -24,6 +24,7 @@ Breadcrumbs.maps = function() {
 		$("#new-crumb-button").click(function(){
 			console.log("Creating new breadcrumb: ");
 		});
+		update();
 		google.maps.event.addDomListener(window, 'load', initialize);
 	}
 
@@ -97,8 +98,9 @@ Breadcrumbs.maps = function() {
 		currentLocation = loadLocation( function(data) {
 
 			userMarker = setMarker({ draggable: true })(data);
+			google.maps.event.addListener( userMarker, 'click', function() {	
+				google.maps.event.clearListeners( userMarker, 'click' );
 
-			google.maps.event.addListener( userMarker, 'click', function() {
 				var contentString = 
 				"<div style='height: 100px;'>" + 
 				"<center><h3>Drop a breadcrumb here?<h3><center>" + 
