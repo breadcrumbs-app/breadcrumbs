@@ -1,4 +1,6 @@
 class CrumbsController < ApplicationController
+  skip_before_filter :verify_authenticity_token, only: [:create]
+
   before_filter :authenticate_user, except: [:index]
   before_action :set_crumb, only: [:show, :edit, :update, :destroy]
 
@@ -14,7 +16,7 @@ class CrumbsController < ApplicationController
 
     respond_to do |format|
       format.html { render :index }
-      format.json { render json: @crumbs }
+      format.json { render json: @crumbs.as_json(include: { user: {only: :name}}) }
     end
   end
 
@@ -36,8 +38,8 @@ class CrumbsController < ApplicationController
   # POST /crumbs.json
   def create
     @crumb = Crumb.new(crumb_params)
-    @crumb.timestamp = DateTime.strptime(crumb_params[:timestamp],'%s')
     @crumb.user_id = current_user.id
+    @crumb.timestamp = DateTime.strptime(crumb_params[:timestamp],'%s') if crumb_params[:timestamp]
 
     respond_to do |format|
       if @crumb.save
