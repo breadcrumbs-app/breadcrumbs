@@ -1,6 +1,21 @@
 Breadcrumbs.messages = function() {
 
 	/*
+	 * Fades in the notification block and sets the notification message.
+	 * The message persists indefinitely until another notification replaces it.
+	 *
+	 */
+	function setNotification( message ) {
+		var notif = $("#notification");
+		var notifmessage = $("#notification-message");
+		var editmessage = document.getElementById("notification-message");
+
+		editmessage.innerHTML = message;
+		notifmessage.fadeIn();
+		notif.fadeIn();
+	}
+
+	/*
 	 * Creates a single notification.
 	 * notification object: {
 	 * 		message: Notification message
@@ -11,7 +26,7 @@ Breadcrumbs.messages = function() {
 		var notif = $("#notification");
 		var notifmessage = $("#notification-message");
 		var editmessage = document.getElementById("notification-message");
-		
+
 		editmessage.innerHTML = notification.message;
 		notifmessage.fadeIn();
 		notif.fadeIn();
@@ -33,30 +48,31 @@ Breadcrumbs.messages = function() {
 	 *		message: Completion message,
 	 *		timeout: TTL for completion message
 	 */
-	function loadingNotification( loading, complete ) {
-		var notif = $("#notification");
-		var notifmessage = $("#notification-message");
-		var editmessage = document.getElementById("notification-message");
+function loadingNotification( loading, complete ) {
+	var notif = $("#notification");
+	var notifmessage = $("#notification-message");
+	var editmessage = document.getElementById("notification-message");
 
-		editmessage.innerHTML = loading.message;
+	editmessage.innerHTML = loading.message;
+	notifmessage.fadeIn();
+	notif.fadeIn();
+	setTimeout( function() {
+		notifmessage.fadeOut();
+		editmessage = complete.message;
 		notifmessage.fadeIn();
-		notif.fadeIn();
-		setTimeout( function() {
-			notifmessage.fadeOut();
-			editmessage = complete.message;
-			notifmessage.fadeIn();
-		}, loading.timeout);
+	}, loading.timeout);
 
-		setTimeout( function() {
-			notifmessage.fadeOut();
-			editmessage = "";
-		}, complete.timeout);
-	}
-			
+	setTimeout( function() {
+		notifmessage.fadeOut();
+		editmessage = "";
+	}, complete.timeout);
+}
 
-	return {
-	
-		createNotification		: createNotification
-	
-	}
+
+return {
+
+	setNotification			: setNotification,
+	createNotification		: createNotification
+
+}
 }();

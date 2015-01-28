@@ -113,20 +113,26 @@ Breadcrumbs.maps = function() {
 				});
 
 		}, function(error){	
+			var strerror;
 			switch(error.code) {
 			case error.PERMISSION_DENIED:
-				console.log("User denied permission.");
+				strerror="User denied permission.";
 				break;
 			case error.POSITION_UNAVAILABLE:
-				console.log("Geolocation/GPS unavailable.");
+				strerror = "Geolocation/GPS unavailable.";
 				break;
 			case error.TIMEOUT:
-				console.log("Geolocation request timed out.");
+				strerror = "Geolocation request timed out.";
 				break;
 			case error.UNKNOWN_ERROR:
-				console.log("Something wack happened.");
+				strerror = "Something wack happened.";
 				break;
 			}
+
+			Breadcrumbs.messages.createNotification({
+				messsage: strerror,
+				timeout: 3000
+			});
 		});
 
 
@@ -173,10 +179,15 @@ Breadcrumbs.maps = function() {
 	function loadLocation (callback, error) {
 		if (navigator.geolocation) {
 			console.log("loading location now...");
+			Breadcrumbs.messages.setNotification("Loading location now...");
 			navigator.geolocation.getCurrentPosition( function(pos){
 				Breadcrumbs.maps.currentLocation['longitude'] = pos.coords.longitude;	
 				Breadcrumbs.maps.currentLocation['latitude'] = pos.coords.latitude;
 
+				Breadcrumbs.messages.createNotification({
+					message: "Location loaded.",
+					timeout: 3000,
+				});
 				console.log("\n\nLocation loaded: ");
 				console.log(Breadcrumbs.maps.currentLocation);
 
