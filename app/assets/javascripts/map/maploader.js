@@ -34,6 +34,7 @@ Breadcrumbs.maps = function() {
 					setMarker()(data['crumbs'][index]);
 				}
 			}, function(err) {
+				console.log(err);
 				Breadcrumbs.messages.createNotification({
 					message: "There was an error",
 					timeout: 3000
