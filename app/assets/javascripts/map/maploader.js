@@ -163,9 +163,9 @@ Breadcrumbs.maps = function() {
 
 			google.maps.event.addListener( marker, 'click', function(){
 				var contentString = "<div class='crumb-window'>";
-				if(data.hasOwnProperty('name')) {
-					contentString += "<h1>"+data.author.name+"</h1>";
-				}
+				contentString += "<h1>"+data.author.name+"</h1>";
+				contentString += "<p>" + data.message + "</p";
+				contentString += "</div>";
 
 				markerInfo.setContent(contentString);
 				markerInfo.open( map, marker );
