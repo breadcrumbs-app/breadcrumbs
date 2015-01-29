@@ -91,7 +91,7 @@ Breadcrumbs.timeline = (function timeline() {
      * parameters: crumbs - JSONArray of JSONObjects(crumbs)
      */
     var insertCrumbsIntoPage = function(crumbs) {
-        for (var i = 0; i < crumbs.length; i++) {
+        for (var i = crumbs.length - 1; i >= 0; i--) {
             // turn crumbs into html
             var html = convertCrumbToHtml(crumbs[i]);
             // append to specific DIV
