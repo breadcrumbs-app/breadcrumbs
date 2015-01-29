@@ -80,7 +80,7 @@ Breadcrumbs.timeline = (function timeline() {
         var contenthtml = "<div class=\"cd-timeline-content is-hidden\">" +
             "<h2>" + crumb.user.name + " was at " + crumb.latitude + "," + crumb.longitude + "</h2>" +
             "<p>" + crumb.message + "</p>" +
-            "<span class=\"cd-date\">" + convertTimestamp(crumb.timestamp) + "</span>" +
+            "<span class=\"cd-date\">" + convertTimestamp(crumb.created_at) + "</span>" +
             "</div>";
 
         console.log(html + contenthtml + "</div>");
