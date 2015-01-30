@@ -4,6 +4,8 @@ Deployed at [http://bc.jstn.kim:3000](http://bc.jstn.kim:3000).
 
 Deployment instructions can be found in [INSTALL.md](INSTALL.md).
 
+The project video can be found at http://youtu.be/wzy0oZn_EQ4.
+
 ## By Eric Chen, Justin Kim, and Genji Noguchi
 ### Leader: Justin Kim
 
